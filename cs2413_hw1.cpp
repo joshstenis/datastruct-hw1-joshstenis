@@ -1,14 +1,19 @@
 #include <iostream>
-
 using namespace std;
 
-int * sparseMatrix();
+class Matrix {
+    int[] values;
+    public:
+        Matrix(int*);
+        int* product(int* arr);
+        int* transpose();
+        int* sum(int* arr);
+};
+
+Matrix::Matrix(int* vals) {
+    values = vals;
+}
 
 int main() {
     return 0;
-}
-
-int * sparseMatrix() {
-    int num[] = {0, 1};
-    return num;
 }
