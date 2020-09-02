@@ -2,17 +2,23 @@
 using namespace std;
 
 class Matrix {
-    int[] values;
+    int values[][];
     public:
-        Matrix(int*);
-        int* product(int* arr);
-        int* transpose();
-        int* sum(int* arr);
-};
+        Matrix(int* vals) {
+            this->values = vals;
+        } int* multiply(int* arr) {
+            int product[sizeof(this->values)][sizeof(arr[0])];
+            for(int i=0; i < sizeof(this->values); i++) {
+                for(int j=0; j < sizeof(this->values[i]); j++) {
+                    product[i][j] = this->values[i][j] * arr[i][j];
+                }
+            }
+        } int* transpose() {
+            return 0;
+        } int* sum(int* arr) {
 
-Matrix::Matrix(int* vals) {
-    values = vals;
-}
+        }
+};
 
 int main() {
     return 0;
