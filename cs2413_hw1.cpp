@@ -15,14 +15,13 @@ using namespace std;
 //         }
 // };
 
-int* strToArray(string str) {
-    int sparse[30];
+int *strToArray(string str) {
+    static int sparse[5];
+    int sparseLen = 0;
     for(int i=0; i < str.length(); i++) {
-        if(str[i] == ' ') {continue;}
-        else {
-            sparse[i] = str[i];
-        }
-    }
+        if(str[i] != ' ')
+            sparse[sparseLen++] = str[i];
+    } return sparse;
 }
 
 string arrayToStr(int* arr) {
