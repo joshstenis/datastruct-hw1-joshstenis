@@ -1,22 +1,19 @@
 #include <iostream>
 using namespace std;
 
-// class Matrix {
-//     int* values;
-//     public:
-//         Matrix(int* vals) {
-//             this->values = vals;
-//         } int* multiply(int* arr) {
-//             
-//         } int* transpose() {
-//             return 0;
-//         } int* sum(int* arr) {
-
-//         }
-// };
+int x[30];
+int xSize = sizeof(x)/sizeof(x[0]);
+int y[30];
+int ySize = sizeof(y)/sizeof(y[0]);
+int z1[30];
+int z1Size = sizeof(z1)/sizeof(z1[0]);
+int z2[60];
+int z2Size = sizeof(z2)/sizeof(z2[0]);
+int z3[64];
+int z3Size = sizeof(z3)/sizeof(z3[0]);
 
 int *strToArray(string str) {
-    static int sparse[5];
+    static int sparse[30];
     int sparseLen = 0;
     for(int i=0; i < str.length(); i++) {
         if(str[i] != ' ')
@@ -32,29 +29,28 @@ string arrayToStr(int* arr) {
     } return result.substr(0, result.size()-1);
 }
 
-int* multiply(int*, int*) {
+void multiply() {
     int result[30];
 }
 
-int* transpose(int* arr) {
+void transpose() {
     int result[40];
-    int arrSize = sizeof(arr)/sizeof(arr[0]);
-    for(int i=0; i < arrSize; i+3) {        // iterates every row-column-value group -- ASSUMES EFFICIENT REP. -- ALSO ASSUMES I CAN RETURN IN EFFICIENT REP.
-        result[i] = arr[i+1];
-        result[i+1] = arr[i];
-    } return result;
+    for(int i=0; i < xSize; i+3) {        // iterates every row-column-value group -- ASSUMES EFFICIENT REP. -- ALSO ASSUMES I CAN RETURN IN EFFICIENT REP.
+        result[i] = x[i+1];
+        result[i+1] = x[i];
+    }
 }
 
-int* sum(int* arr1, int* arr2) {
-    int result[40];
-    for(int i=0; i < sizeof(arr1); i++) {
+void sum() {
+    // int result[40];
+    // for(int i=0; i < ; i++) {
         
-    }
+    // }
 }
 
 int main() {
     string rawMatrix;
-    cin >> rawMatrix;
+    getline(cin, rawMatrix);
     int* matrix = strToArray(rawMatrix);
     // cout << multiply();
 }
