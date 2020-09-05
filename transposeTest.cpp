@@ -38,11 +38,12 @@ void transpose(int arr[]) {
         arr[i] = arr[i+1];
         arr[i+1] = tmp[i];      // swaps the rows and columns as per transposition
     }
-    
-    for(int i=0; i < xSize; i+3) {    // bubble sort by groups of 3
+    cout << "ROW AND COLUMN VALUES SWAPPED" << endl;
+
+    for(int i=0; i < xSize; i+3) {    // bubble sort by row-column-value trios
         tmp = arr;
         for(int j=i+3; j < xSize; j+3) {
-            if(arr[j] < arr[i] || arr[j+1] < arr[i+1]) {       // if rows OR columns are in wrong order
+            if(arr[j] < arr[i] || (arr[j] == arr[i] && arr[j+1] < arr[i+1])) {       // if rows OR columns are in wrong order
                 arr[i] = arr[j];
                 arr[i+1] = arr[j+1];
                 arr[i+2] = arr[j+2];
@@ -52,15 +53,19 @@ void transpose(int arr[]) {
                 arr[j+2] = tmp[j+2];
             }
         }
-    }
+    } cout << "ARRAY BUBBLE SORTED" << endl;
     
     outputMatrix(arr);
 }
 ////////////////
 
 int main() {
-    string rawMatrix;
-    getline(cin, rawMatrix);
+    cout << "MAIN BEGINS" << endl;
+    string rawMatrix = "0 0 1 0 1 3 2 2 7 4 2 8";       // Test string
+    // getline(cin, rawMatrix);
+
     populateArray(rawMatrix, x);
+    cout << "ARRAY POPULATED" << endl;
     transpose(x);
+    cout << "ARRAY TRANSPOSED" << endl;
 }

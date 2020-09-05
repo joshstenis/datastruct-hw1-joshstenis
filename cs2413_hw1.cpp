@@ -80,7 +80,7 @@ void transpose(int arr[]) {
         arr[i+1] = tmp[i];      // swaps the rows and columns as per transposition
     }
     
-    for(int i=0; i < xSize; i+3) {    // bubble sort by groups of 3
+    for(int i=0; i < xSize; i+3) {    // bubble sort by row-column-value trios
         tmp = arr;
         for(int j=i+3; j < xSize; j+3) {
             if(arr[j] < arr[i] || arr[j+1] < arr[i+1]) {       // if rows OR columns are in wrong order
