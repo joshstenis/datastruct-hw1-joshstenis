@@ -6,13 +6,6 @@ int xSize = sizeof(x)/sizeof(x[0]);
 int y[30];
 int ySize = sizeof(y)/sizeof(y[0]);
 
-int z1[30];
-int z1Size = sizeof(z1)/sizeof(z1[0]);
-int z2[60];
-int z2Size = sizeof(z2)/sizeof(z2[0]);
-int z3[64];
-int z3Size = sizeof(z3)/sizeof(z3[0]);
-
 
 // General use version of strToArray() and arrayToString()
 // 
@@ -33,6 +26,19 @@ int z3Size = sizeof(z3)/sizeof(z3[0]);
 //     } return result.substr(0, result.size()-1);
 // }
 
+
+/**
+ * Outputs a given int array as a oneline string
+ * @param arr Given int array, in theory represents a sparse matrix
+ */
+void outputMatrix(int arr[]) {
+    int arrSize = sizeof(arr)/sizeof(arr[0]);
+    string output;
+
+    for(int i=0; i < arrSize; i++) {
+        output += arr[i] + " ";
+    } cout << output.substr(0, arrSize-1) << endl;
+}
 
 /**
  * Copies a given int array.
@@ -89,7 +95,7 @@ void transpose(int arr[]) {
         }
     }
     
-    // assign arr[] to z1[]
+    outputMatrix(arr);
 }
 
 /**
@@ -102,16 +108,24 @@ void multiply() {
 /**
  * Calculates the sum of two matrices.
  */
-void sum() {
-    // int result[40];
-    // for(int i=0; i < ; i++) {
-        
-    // }
+void sum(int x[], int y[]) {
+    int sum[60];
+
+    
+    outputMatrix(sum);
 }
 
 int main() {
+    // Task 1
     string rawMatrix;
     getline(cin, rawMatrix);
     populateArray(rawMatrix, x);
     transpose(x);
+
+    // Task 2
+    // getline(cin, rawMatrix);
+    // populateArray(rawMatrix, y);
+    // sum(x, y);
+
+    // Task 3
 }
