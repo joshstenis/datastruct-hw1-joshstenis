@@ -12,35 +12,82 @@ int z2Size = sizeof(z2)/sizeof(z2[0]);
 int z3[64];
 int z3Size = sizeof(z3)/sizeof(z3[0]);
 
-int *strToArray(string str) {
-    static int sparse[30];
-    int sparseLen = 0;
+
+// General use version of strToArray() and arrayToString()
+// 
+// int *strToArray(string str) {
+//     static int sparse[30];
+//     int sparseLen = 0;
+//     for(int i=0; i < str.length(); i++) {
+//         if(str[i] != ' ')
+//             sparse[sparseLen++] = str[i];
+//     } return sparse;
+// }
+// 
+// string arrayToStr(int* arr) {
+//     string result;
+//     int arrSize = sizeof(arr)/sizeof(arr[0]);
+//     for(int i=0; i < arrSize; i++) {
+//         result += arr[i] + " ";
+//     } return result.substr(0, result.size()-1);
+// }
+
+
+/**
+ * Copies a given int array.
+ * @param arr Given int array to be copied
+ * @return the pointer to the copy of the given int array
+ */
+int *copyIntArray(int *arr) {
+    static int cpy[sizeof(arr)/sizeof(arr[0])];
+    int arrSize = sizeof(arr)/sizeof(arr[0]);
+
+    for(int i=0; i < arrSize; i++) {
+        cpy[i] = arr[i];
+    } return cpy;
+}
+
+/**
+ * Populates a given array with the contents of a given string.
+ * @param str Given string to be put into array
+ * @param arr Given array to be populated with the string (removes spaces)
+ */
+void populateArray(string str, int *arr) {
+    int xLen = 0;
     for(int i=0; i < str.length(); i++) {
         if(str[i] != ' ')
-            sparse[sparseLen++] = str[i];
-    } return sparse;
-}
-
-string arrayToStr(int* arr) {
-    string result;
-    int arrSize = sizeof(arr)/sizeof(arr[0]);
-    for(int i=0; i < arrSize; i++) {
-        result += arr[i] + " ";
-    } return result.substr(0, result.size()-1);
-}
-
-void multiply() {
-    int result[30];
-}
-
-void transpose() {
-    int result[40];
-    for(int i=0; i < xSize; i+3) {        // iterates every row-column-value group -- ASSUMES EFFICIENT REP. -- ALSO ASSUMES I CAN RETURN IN EFFICIENT REP.
-        result[i] = x[i+1];
-        result[i+1] = x[i];
+            x[xLen++] = str[i];
     }
 }
 
+/**
+ * Multiplies two matrices.
+ */
+void multiply() {
+    //
+}
+
+/**
+ * Transposes a given array.
+ * Outputs transposition in efficient representation.
+ * @param arr Given array to be transposed. Assumes efficient representation
+ */
+void transpose(int *arr) {
+    int *tmp = copyIntArray(arr);
+
+    for(int i=0; i < xSize; i+3) {  // iterates every row-column-value group
+        arr[i] = arr[i+1];
+        arr[i+1] = tmp[i];
+    } tmp = arr;
+    
+    for(int i=0; i < xSize; i+3) {    // sorts the row-column-value trios
+        // Bubble sort
+    }
+}
+
+/**
+ * Calculates the sum of two matrices.
+ */
 void sum() {
     // int result[40];
     // for(int i=0; i < ; i++) {
@@ -51,6 +98,6 @@ void sum() {
 int main() {
     string rawMatrix;
     getline(cin, rawMatrix);
-    int* matrix = strToArray(rawMatrix);
-    // cout << multiply();
+    populateArray(rawMatrix, x);
+    transpose(x);
 }
