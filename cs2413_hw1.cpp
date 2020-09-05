@@ -5,6 +5,7 @@ int x[30];
 int xSize = sizeof(x)/sizeof(x[0]);
 int y[30];
 int ySize = sizeof(y)/sizeof(y[0]);
+
 int z1[30];
 int z1Size = sizeof(z1)/sizeof(z1[0]);
 int z2[60];
@@ -38,7 +39,7 @@ int z3Size = sizeof(z3)/sizeof(z3[0]);
  * @param arr Given int array to be copied
  * @return the pointer to the copy of the given int array
  */
-int *copyIntArray(int *arr) {
+int *copyIntArray(int arr[]) {
     static int cpy[sizeof(arr)/sizeof(arr[0])];
     int arrSize = sizeof(arr)/sizeof(arr[0]);
 
@@ -52,7 +53,7 @@ int *copyIntArray(int *arr) {
  * @param str Given string to be put into array
  * @param arr Given array to be populated with the string (removes spaces)
  */
-void populateArray(string str, int *arr) {
+void populateArray(string str, int arr[]) {
     int xLen = 0;
     for(int i=0; i < str.length(); i++) {
         if(str[i] != ' ')
@@ -61,28 +62,41 @@ void populateArray(string str, int *arr) {
 }
 
 /**
- * Multiplies two matrices.
- */
-void multiply() {
-    //
-}
-
-/**
  * Transposes a given array.
  * Outputs transposition in efficient representation.
  * @param arr Given array to be transposed. Assumes efficient representation
  */
-void transpose(int *arr) {
+void transpose(int arr[]) {
     int *tmp = copyIntArray(arr);
 
     for(int i=0; i < xSize; i+3) {  // iterates every row-column-value group
         arr[i] = arr[i+1];
-        arr[i+1] = tmp[i];
-    } tmp = arr;
-    
-    for(int i=0; i < xSize; i+3) {    // sorts the row-column-value trios
-        // Bubble sort
+        arr[i+1] = tmp[i];      // swaps the rows and columns as per transposition
     }
+    
+    for(int i=0; i < xSize; i+3) {    // bubble sort by groups of 3
+        tmp = arr;
+        for(int j=i+3; j < xSize; j+3) {
+            if(arr[j] < arr[i] || arr[j+1] < arr[i+1]) {       // if rows OR columns are in wrong order
+                arr[i] = arr[j];
+                arr[i+1] = arr[j+1];
+                arr[i+2] = arr[j+2];
+
+                arr[j] = tmp[j];
+                arr[j+1] = tmp[j+1];
+                arr[j+2] = tmp[j+2];
+            }
+        }
+    }
+    
+    // assign arr[] to z1[]
+}
+
+/**
+ * Multiplies two matrices.
+ */
+void multiply() {
+    //
 }
 
 /**
