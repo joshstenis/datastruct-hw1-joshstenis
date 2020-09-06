@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int x[30];
+int x[12];
 int xSize = sizeof(x)/sizeof(x[0]);
 int *zOne;      // same size as x
 
@@ -19,24 +19,24 @@ void populateArray(string str, int arr[]) {
     int j = 0;
     for(int i=0; i < str.length(); i++) {
         if(str[i] != ' ')
-            arr[j++] = str[i];
+            arr[j++] = str[i] - 48;
     }
 }
 
-int *copyIntArray(int arr[]) {
-    static int cpy[sizeof(arr)/sizeof(arr[0])];
+void copyToX(int arr[]) {
     int arrSize = sizeof(arr)/sizeof(arr[0]);
 
     for(int i=0; i < arrSize; i++) {
-        cpy[i] = arr[i];
-    } return cpy;
+        x[i] = arr[i];
+    }
 }
 
 ///////////////
 void transpose(int arr[]) {
-    int *tmp = copyIntArray(arr);
+    copyToX(arr);
     cout << "ARRAY COPIED -- " << xSize << endl;
 
+    outputMatrix(x);
     int j = 0;
     for(int i=0; i < xSize; i+=3) {  // swaps row and column values for each trio
         cout << "ITER " << j++ << endl;
@@ -44,6 +44,7 @@ void transpose(int arr[]) {
     }
     cout << "ROW AND COLUMN VALUES SWAPPED" << endl;
 
+    int *tmp;
     for(int i=0; i < xSize; i+=3) {    // bubble sort by row-column-value trios
         for(int j=i+3; j < xSize; j+=3) {
             tmp = &arr[j];
