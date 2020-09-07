@@ -59,10 +59,27 @@ void transpose(int arr[]) {
 }
 
 /**
- * Multiplies two matrices.
+ * Multiplies two matrices -- Assumes efficient representation
+ * @param x First matrix to multiply
+ * @param xSize The size of x
+ * @param y Second matrix to multiply
+ * @param ySize The size of y
  */
-void multiply() {
-    //
+void multiply(int x[], int xSize, int y[], int ySize) {
+    int product[12];
+    int nextEmpty = 0;
+
+    for(int i=0; i < xSize; i+=3) {
+        for(int j=0; j < ySize; j+=3) {
+            if(x[i] == y[j+1]) {
+                product[nextEmpty++] = x[i+1];
+                product[nextEmpty++] = y[j];
+                product[nextEmpty++] = x[i+2] * y[j+2];
+                cout << x[i+2] * y[j+2] << " NE: " << nextEmpty << endl;
+            }
+        }
+    }
+    outputMatrix(product, 12);
 }
 
 /**
@@ -85,4 +102,7 @@ int main() {
     // sum(x, y);
 
     // Task 3
+    getline(cin, rawMatrix);
+    populateArray(rawMatrix, x);
+    multiply(x, xSize, y, ySize);
 }
