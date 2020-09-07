@@ -15,7 +15,7 @@ void outputMatrix(int arr[], int size) {
 
 void copyToArray(int src[], int dest[]) {
     int srcSize = sizeof(src)/sizeof(src[0]);
-    int destSize = sizeof(dest)/ sizeof(dest[0]);
+    int destSize = sizeof(dest)/sizeof(dest[0]);
 
     for(int i=0; i < srcSize; i++) {
         if(i >= destSize) {break;}
@@ -31,19 +31,18 @@ void populateArray(string str, int arr[]) {
     }
 }
 
-void multiply(int xT[], int y[]) {
-    int xTSize = sizeof(xT)/sizeof(xT[0]);
-    int ySize = sizeof(y)/sizeof(y[0]);
-
+void multiply(int x[], int xSize, int y[], int ySize) {
     int product[12];
     int nextEmpty = 0;
 
-    for(int i=0; i < xTSize; i+=3) {
-        for(int j=i+3; j < ySize; j+=3) {
-            if(xT[i] == y[j] && xT[i+1] == y[j+1]) {
-                product[nextEmpty++] = y[j];
-                product[nextEmpty++] = y[j+1];
-                product[nextEmpty++] = xT[i+2] * y[j+2];
+    for(int i=0; i < xSize; i+=3) {
+        for(int j=i; j < ySize; j+=3) {
+            if(x[i+1] == y[j+1]) {cout << "column " << x[i+1] << endl;}
+            if(x[i] == y[j]) {
+                cout << "row " << x[i] << endl;
+                // product[nextEmpty++] = y[j];
+                // product[nextEmpty++] = y[j+1];
+                // product[nextEmpty++] = x[i+2] * y[j+2];
             }
         }
     } int p[nextEmpty];
@@ -61,5 +60,5 @@ int main() {
     populateArray(rawY, y);
     outputMatrix(y, ySize);
 
-    multiply(x, y);
+    multiply(x, xSize, y, ySize);
 }
