@@ -33,7 +33,7 @@ void copyToX(int arr[]) {
 
 ///////////////
 void transpose(int arr[]) {
-    copyToX(arr);
+    //copyToX(arr);
     cout << "ARRAY COPIED -- " << xSize << endl;
 
     outputMatrix(x);

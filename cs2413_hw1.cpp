@@ -18,18 +18,6 @@ void outputMatrix(int arr[]) {
 }
 
 /**
- * Copies a given int array.
- * @param arr Given int array to be copied
- */
-void copyToX(int arr[]) {
-    int arrSize = sizeof(arr)/sizeof(arr[0]);
-
-    for(int i=0; i < arrSize; i++) {
-        x[i] = arr[i];
-    }
-}
-
-/**
  * Populates a given array with the contents of a given string.
  * @param str Given string to be put into array
  * @param arr Given array to be populated with the string (removes spaces)
@@ -48,9 +36,6 @@ void populateArray(string str, int arr[]) {
  * @param arr Given array to be transposed. Assumes efficient representation
  */
 void transpose(int arr[]) {
-    copyToX(arr);
-
-    outputMatrix(x);
     int j = 0;
     for(int i=0; i < xSize; i+=3) {  // swaps row and column values for each trio
         arr[i] = (arr[i] ^ arr[i+1]) ^ (arr[i+1] = arr[i]);
@@ -85,9 +70,15 @@ void multiply() {
  */
 void sum(int x[], int y[]) {
     int sum[60];
+    int sharedVals = 0;
 
-    
-    outputMatrix(sum);
+    for(int i=0; i < xSize; i+=3) {             // Counts shared values between X and Y for a perfect-sized sum array
+        if(x[i] == y[i] && x[i+1] == y[i+1]) {
+            sharedVals++;
+        } else {
+            //
+        }
+    } int sumSize = xSize - (sharedVals*3);
 }
 
 int main() {
