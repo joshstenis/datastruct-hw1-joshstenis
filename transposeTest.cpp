@@ -23,14 +23,6 @@ void populateArray(string str, int arr[]) {
     }
 }
 
-void copyToX(int arr[]) {
-    int arrSize = sizeof(arr)/sizeof(arr[0]);
-
-    for(int i=0; i < arrSize; i++) {
-        x[i] = arr[i];
-    }
-}
-
 ///////////////
 void transpose(int arr[]) {
     //copyToX(arr);
@@ -71,6 +63,7 @@ int main() {
 
     cout << x[4] << endl;
     populateArray(rawMatrix, x);
+    outputMatrix(x);
     cout << "ARRAY POPULATED -- " << x[4] << endl;
     transpose(x);
     cout << "ARRAY TRANSPOSED" << endl;

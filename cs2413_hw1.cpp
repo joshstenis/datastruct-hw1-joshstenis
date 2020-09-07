@@ -10,10 +10,10 @@ int ySize = sizeof(y)/sizeof(y[0]);
  * Outputs a given int array as a oneline string
  * @param arr Given int array, in theory represents a sparse matrix
  */
-void outputMatrix(int arr[]) {
-    cout << x[0];
-    for(int i=1; i < xSize; i++) {
-        cout << " " << x[i];
+void outputMatrix(int arr[], int size) {
+    cout << arr[0];
+    for(int i=1; i < size; i++) {
+        cout << " " << arr[i];
     } cout << endl;
 }
 
@@ -55,7 +55,7 @@ void transpose(int arr[]) {
                 arr[j+2] = *tmp++;
             }
         }
-    } outputMatrix(arr);
+    } outputMatrix(arr, xSize);
 }
 
 /**
@@ -69,16 +69,7 @@ void multiply() {
  * Calculates the sum of two matrices.
  */
 void sum(int x[], int y[]) {
-    int sum[60];
-    int sharedVals = 0;
-
-    for(int i=0; i < xSize; i+=3) {             // Counts shared values between X and Y for a perfect-sized sum array
-        if(x[i] == y[i] && x[i+1] == y[i+1]) {
-            sharedVals++;
-        } else {
-            //
-        }
-    } int sumSize = xSize - (sharedVals*3);
+    //
 }
 
 int main() {
