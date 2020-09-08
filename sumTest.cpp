@@ -3,10 +3,10 @@ using namespace std;
 
 int x[12];
 int y[12];
-int xSize, ySize = 12;
+int xSize = 12;
+int ySize = 12;
 
-void outputMatrix(int arr[]) {
-    int size = sizeof(arr)/sizeof(arr[0]);
+void outputMatrix(int arr[], int size) {
     cout << arr[0];
     for(int i=1; i < size; i++) {
         cout << " " << arr[i];
@@ -21,40 +21,62 @@ void populateArray(string str, int arr[]) {
     }
 }
 
-void copyToArray(int src[], int dest[]) {
-    int srcSize = sizeof(src)/sizeof(src[0]);
-    int destSize = sizeof(dest)/ sizeof(dest[0]);
-
-    for(int i=0; i < srcSize; i++) {
-        if(i >= destSize) {break;}
+void copyToArray(int src[], int srcSize, int dest[], int destSize) {
+    for(int i=0; i < destSize; i++) {
         dest[i] = src[i];
     }
 }
 
-void sum(int x[], int y[]) {
+void leftShift(int arr[], int idx, int size, int shift) {
+	for(int i=idx; i < size; i++)
+		arr[i] = arr[i+shift];
+}
+
+void sum(int x[], int xSize, int y[], int ySize) {
     int sum[60];
     int sumSize = 60;
+    for(int i=0; i < 60; i++)       // Clear sum
+        sum[i] = 0;
+
+    for(int i=0; i < (xSize+ySize); i++) {       // Put X and Y into sum[]
+        if(i < xSize)
+            sum[i] = x[i];
+        else
+            sum[i] = y[i-xSize];
+    } outputMatrix(sum, 24);
+    
     int sharedVals = 0;
+    for(int i=0; i < xSize; i+=3) {
+        for(int j=ySize; j < sumSize; j+=3) {
+            if(sum[i] == sum[j] && sum[i+1] == sum[j+1]) {      // Duplicate trio
+                sum[i+2] += sum[j+2];
 
-    copyToArray(x, sum);        // Populates sum[] with x[]
-    int nextEmpty = 30;
-
-    for(int i=0; i < sumSize; i+=3) {             // Populates sum[] with y[], also checks how many values on in same location X and Y have
-        for(int j=0; j < ySize; j++) {
-            if(sum[i] == y[j] && sum[i+1] == y[j+1])
-                sum[i+2] += y[j+2];
-            else {
-                sum[nextEmpty] = y[j];
-                sum[nextEmpty+1] = y[j+1];
-                sum[nextEmpty+2] = y[j+2];
-                nextEmpty += 3;
+                sum[j] = -1;
+                sum[j+1] = -1;
+                sum[j+2] = -1;
+            }
+        }
+    }
+    
+    for(int i=xSize; i < sumSize; i+=3) {       // Shifts values after each duplicate
+        if(sum[i] == -1) {
+            leftShift(sum, i, sumSize, 3);
+        }
+    }
+    
+    int perfectSize = -1;
+    for(int i=xSize; i < sumSize; i+=3) {       // Shifts values after each duplicate
+        if(sum[i] == -1) {
+            cout << "P SIZE " << i << endl;
+            if(perfectSize < 0) {
+                perfectSize = i;
+                break;
             }
         }
     }
 
-    int perfectSum[nextEmpty];      //perfect sized array for the sum of X and Y
-    copyToArray(sum, perfectSum);
-    cout << perfectSum[3] << endl;
+    int perfectSum[perfectSize];
+    copyToArray(sum, sumSize, perfectSum, perfectSize);
 
     int *tmp;
     for(int i=0; i < xSize; i+=3) {    // bubble sort by row-column-value trios
@@ -70,21 +92,22 @@ void sum(int x[], int y[]) {
                 perfectSum[j+2] = *tmp++;
             }
         }
-    } outputMatrix(perfectSum);
+    } cout << "ARRAY BUBBLE SORTED" << endl;
+    outputMatrix(perfectSum, perfectSize);          // nextEmpty reflects the size of sum
 }
 
 int main() {
     cout << "MAIN BEGINS" << endl;
     string rawX = "0 0 1 0 1 3 2 2 7 4 2 8";       // Test X string
-    string rawY = "0 1 4 1 5 4 2 3 4 2 4 7";       // Test Y string
+    string rawY = "0 0 4 1 5 4 2 3 4 2 4 7";       // Test Y string
     // getline(cin, rawMatrix);
 
     populateArray(rawX, x);
-    outputMatrix(x);
+    outputMatrix(x, xSize);
     populateArray(rawY, y);
-    outputMatrix(y);
+    outputMatrix(y, ySize);
 
     cout << "ARRAY POPULATED -- " << endl;
-    sum(x, y);
+    sum(x, xSize, y, ySize);
     cout << "ARRAYS ADDED" << endl;
 }

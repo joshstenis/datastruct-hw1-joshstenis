@@ -7,6 +7,31 @@ int y[30];
 int ySize = sizeof(y)/sizeof(y[0]);
 
 /**
+ * Shifts all elements of the given int array to the left by given amount shift, starting at given idx
+ * @param arr Given int array
+ * @param idx The starting index in given array
+ * @param size The size of given array
+ * @param shift The number of spaces each element will be moved
+ */
+void leftShift(int arr[], int idx, int size, int shift) {
+	for(int i=idx; i < size; i++)
+		arr[i] = arr[i+shift];
+}
+
+/**
+ * Copies the src array into the dest array. Usually used for trimming extraneous elements at the end of src[]
+ * @param src Array to be copied into dest
+ * @param srcSize Size of src
+ * @param dest Copy array of src
+ * @param destSize Size of dest
+ */
+void copyToArray(int src[], int srcSize, int dest[], int destSize) {
+    for(int i=0; i < destSize; i++) {
+        dest[i] = src[i];
+    }
+}
+
+/**
  * Outputs a given int array as a oneline string
  * @param arr Given int array, in theory represents a sparse matrix
  */
@@ -85,8 +110,68 @@ void multiply(int x[], int xSize, int y[], int ySize) {
 /**
  * Calculates the sum of two matrices.
  */
-void sum(int x[], int y[]) {
-    //
+void sum(int x[], int xSize, int y[], int ySize) {
+    int sum[60];
+    int sumSize = 60;
+    for(int i=0; i < 60; i++)       // Clear sum
+        sum[i] = 0;
+
+    for(int i=0; i < (xSize+ySize); i++) {       // Put X and Y into sum[]
+        if(i < xSize)
+            sum[i] = x[i];
+        else
+            sum[i] = y[i-xSize];
+    } outputMatrix(sum, 24);
+    
+    int sharedVals = 0;
+    for(int i=0; i < xSize; i+=3) {
+        for(int j=ySize; j < sumSize; j+=3) {
+            if(sum[i] == sum[j] && sum[i+1] == sum[j+1]) {      // Duplicate trio
+                sum[i+2] += sum[j+2];
+
+                sum[j] = -1;
+                sum[j+1] = -1;
+                sum[j+2] = -1;
+            }
+        }
+    }
+    
+    for(int i=xSize; i < sumSize; i+=3) {       // Shifts values after each duplicate
+        if(sum[i] == -1) {
+            leftShift(sum, i, sumSize, 3);
+        }
+    }
+    
+    int perfectSize = -1;
+    for(int i=xSize; i < sumSize; i+=3) {       // Shifts values after each duplicate
+        if(sum[i] == -1) {
+            cout << "P SIZE " << i << endl;
+            if(perfectSize < 0) {
+                perfectSize = i;
+                break;
+            }
+        }
+    }
+
+    int perfectSum[perfectSize];
+    copyToArray(sum, sumSize, perfectSum, perfectSize);
+
+    int *tmp;
+    for(int i=0; i < xSize; i+=3) {    // bubble sort by row-column-value trios
+        for(int j=i+3; j < xSize; j+=3) {
+            tmp = &perfectSum[j];
+            if(perfectSum[j] < perfectSum[i] || (perfectSum[j] == perfectSum[i] && perfectSum[j+1] < perfectSum[i+1])) {       // if rows OR columns are in wrong order
+                perfectSum[i] = perfectSum[j];
+                perfectSum[i+1] = perfectSum[j+1];
+                perfectSum[i+2] = perfectSum[j+2];
+
+                perfectSum[j] = *tmp++;
+                perfectSum[j+1] = *tmp++;
+                perfectSum[j+2] = *tmp++;
+            }
+        }
+    } cout << "ARRAY BUBBLE SORTED" << endl;
+    outputMatrix(perfectSum, perfectSize);          // nextEmpty reflects the size of sum
 }
 
 int main() {
