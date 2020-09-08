@@ -175,19 +175,21 @@ void sum(int x[], int xSize, int y[], int ySize) {
 }
 
 int main() {
-    // Task 1
-    string rawMatrix;
-    getline(cin, rawMatrix);
-    populateArray(rawMatrix, x);
-    transpose(x);
-
-    // Task 2
-    // getline(cin, rawMatrix);
-    // populateArray(rawMatrix, y);
-    // sum(x, y);
-
-    // Task 3
-    getline(cin, rawMatrix);
-    populateArray(rawMatrix, x);
-    multiply(x, xSize, y, ySize);
+    string task, rawMatrix;
+    getline(cin, task);
+    
+    if(task == "1") {           // Task 1
+        string rawMatrix;
+        getline(cin, rawMatrix);
+        populateArray(rawMatrix, x);
+        transpose(x);
+    } else if(task == "2") {            // Task 2
+        getline(cin, rawMatrix);
+        populateArray(rawMatrix, y);
+        sum(x, y);
+    } else if(task == "3") {            // Task 3
+        getline(cin, rawMatrix);
+        populateArray(rawMatrix, x);
+        multiply(x, xSize, y, ySize);
+    }
 }
