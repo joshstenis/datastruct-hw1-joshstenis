@@ -1,9 +1,19 @@
 #include <iostream>
 using namespace std;
 
-int x[30];
+int x[30];              // Input from file
 int xSize = sizeof(x)/sizeof(x[0]);
-int y[30];
+
+int y[] = { 0, 0, 1,               // Given as part of Assignment 1
+            0, 3, 9,
+            0 ,5, 5,
+            1, 4, 2,
+            1, 7, 3,
+            2, 1, 4,
+            2, 6, 8,
+            3, 2, 2,
+            4, 0, 1,
+            4, 4, 7 };
 int ySize = sizeof(y)/sizeof(y[0]);
 
 /**
@@ -177,7 +187,7 @@ void sum(int x[], int xSize, int y[], int ySize) {
 int main() {
     string task, rawMatrix;
     getline(cin, task);
-    
+
     if(task == "1") {           // Task 1
         string rawMatrix;
         getline(cin, rawMatrix);
@@ -186,7 +196,7 @@ int main() {
     } else if(task == "2") {            // Task 2
         getline(cin, rawMatrix);
         populateArray(rawMatrix, y);
-        sum(x, y);
+        sum(x, xSize, y, ySize);
     } else if(task == "3") {            // Task 3
         getline(cin, rawMatrix);
         populateArray(rawMatrix, x);
