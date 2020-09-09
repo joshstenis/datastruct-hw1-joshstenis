@@ -41,6 +41,18 @@ void copyToArray(int src[], int srcSize, int dest[], int destSize) {
     }
 }
 
+void sortMatrix(int arr[], int size) {
+    for(int i=0; i < size; i+=3) {
+        for(int j=i+3; j < size; j+=3) {
+            if(arr[j] < arr[i] || (arr[j] == arr[i] && arr[j+1] < arr[i+1])) {
+                arr[i] = (arr[i] ^ arr[j]) ^ (arr[j] = arr[i]);
+                arr[i+1] = (arr[i+1] ^ arr[j+1]) ^ (arr[j+1] = arr[i+1]);
+                arr[i+2] = (arr[i+2] ^ arr[j+2]) ^ (arr[j+2] = arr[i+2]);
+            }
+        }
+    }
+}
+
 /**
  * Outputs a given int array as a oneline string
  * @param arr Given int array, in theory represents a sparse matrix
@@ -71,22 +83,14 @@ void populateArray(string str, int arr[]) {
  * Outputs transposition in efficient representation.
  * @param arr Given array to be transposed. Assumes efficient representation
  */
-void transpose(int arr[]) {
+void transpose(int arr[], int size) {
     int j = 0;
-    for(int i=0; i < xSize; i+=3) {  // swaps row and column values for each trio
+    for(int i=0; i < size; i+=3) {  // swaps row and column values for each trio
         arr[i] = (arr[i] ^ arr[i+1]) ^ (arr[i+1] = arr[i]);
     }
 
-    int *tmp;
-    for(int i=0; i < xSize; i+=3) {    // bubble sort by row-column-value trios
-        for(int j=i+3; j < xSize; j+=3) {
-            if(arr[j] < arr[i] || (arr[j] == arr[i] && arr[j+1] < arr[i+1])) {       // if rows OR columns are in wrong order
-                arr[i] = (arr[i] ^ arr[j]) ^ (arr[j] = arr[i]);
-                arr[i+1] = (arr[i+1] ^ arr[j+1]) ^ (arr[j+1] = arr[i+1]);
-                arr[i+2] = (arr[i+2] ^ arr[j+2]) ^ (arr[j+2] = arr[i+2]);
-            }
-        }
-    } outputMatrix(arr, xSize);
+    sortMatrix(arr, size);
+    outputMatrix(arr, size);
 }
 
 /**
@@ -109,7 +113,7 @@ void multiply(int x[], int xSize, int y[], int ySize) {
                 cout << x[i+2] * y[j+2] << " NE: " << nextEmpty << endl;
             }
         }
-    }
+    } sortMatrix(product, 30);
     outputMatrix(product, 30);
 }
 
@@ -151,7 +155,6 @@ void sum(int x[], int xSize, int y[], int ySize) {
     int perfectSize = -1;
     for(int i=xSize; i < sumSize; i+=3) {       // Shifts values after each duplicate
         if(sum[i] == -1) {
-            cout << "P SIZE " << i << endl;
             if(perfectSize < 0) {
                 perfectSize = i;
                 break;
@@ -159,25 +162,26 @@ void sum(int x[], int xSize, int y[], int ySize) {
         }
     }
 
-    int perfectSum[perfectSize];
-    copyToArray(sum, sumSize, perfectSum, perfectSize);
+    // int perfectSum[perfectSize];
+    // copyToArray(sum, sumSize, perfectSum, perfectSize);
 
-    int *tmp;
-    for(int i=0; i < xSize; i+=3) {    // bubble sort by row-column-value trios
-        for(int j=i+3; j < xSize; j+=3) {
-            tmp = &perfectSum[j];
-            if(perfectSum[j] < perfectSum[i] || (perfectSum[j] == perfectSum[i] && perfectSum[j+1] < perfectSum[i+1])) {       // if rows OR columns are in wrong order
-                perfectSum[i] = perfectSum[j];
-                perfectSum[i+1] = perfectSum[j+1];
-                perfectSum[i+2] = perfectSum[j+2];
+    // int *tmp;
+    // for(int i=0; i < xSize; i+=3) {    // bubble sort by row-column-value trios
+    //     for(int j=i+3; j < xSize; j+=3) {
+    //         tmp = &perfectSum[j];
+    //         if(perfectSum[j] < perfectSum[i] || (perfectSum[j] == perfectSum[i] && perfectSum[j+1] < perfectSum[i+1])) {       // if rows OR columns are in wrong order
+    //             perfectSum[i] = perfectSum[j];
+    //             perfectSum[i+1] = perfectSum[j+1];
+    //             perfectSum[i+2] = perfectSum[j+2];
 
-                perfectSum[j] = *tmp++;
-                perfectSum[j+1] = *tmp++;
-                perfectSum[j+2] = *tmp++;
-            }
-        }
-    } cout << "ARRAY BUBBLE SORTED" << endl;
-    outputMatrix(perfectSum, perfectSize);          // nextEmpty reflects the size of sum
+    //             perfectSum[j] = *tmp++;
+    //             perfectSum[j+1] = *tmp++;
+    //             perfectSum[j+2] = *tmp++;
+    //         }
+    //     }
+    // } cout << "ARRAY BUBBLE SORTED" << endl;
+    sortMatrix(sum, sumSize);
+    outputMatrix(sum, sumSize);          // nextEmpty reflects the size of sum
 }
 
 int main() {
@@ -190,7 +194,7 @@ int main() {
         string rawMatrix;
         getline(cin, rawMatrix);
         populateArray(rawMatrix, x);
-        transpose(x);
+        transpose(x, xSize);
     } else if(task == "2") {            // Task 2
         getline(cin, rawMatrix);
         populateArray(rawMatrix, y);
