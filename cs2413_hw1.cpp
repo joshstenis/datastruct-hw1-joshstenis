@@ -91,7 +91,7 @@ void populateArray(int e, int arr[]) {
     for(int i=0; i < e; i++) {
         cin >> num;
         arr[i] = strToInt(num);
-    }
+    } cin.ignore(1, '\n');
 }
 
 /**
