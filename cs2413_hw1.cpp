@@ -217,7 +217,6 @@ int main() {
     string rawMatrix;
     cin >> task;
     cin >> r;
-    cout << "TASK INPUT" << endl;
 
     cin.ignore(1, '\n');
     if(task == '1') {           // Task 1
