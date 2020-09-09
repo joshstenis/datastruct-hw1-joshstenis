@@ -14,18 +14,6 @@ int y[] = { 0, 0, 1,               // Given as part of Assignment 1
 int ySize = sizeof(y)/sizeof(y[0]);
 
 /**
- * Shifts all elements of the given int array to the left by given amount shift, starting at given idx
- * @param arr Given int array
- * @param idx The starting index in given array
- * @param size The size of given array
- * @param shift The number of spaces each element will be moved
- */
-void leftShift(int arr[], int idx, int size, int shift) {
-	for(int i=idx; i < size; i++)
-		arr[i] = arr[i+shift];
-}
-
-/**
  * Copies the src array into the dest array. Usually used for trimming extraneous elements at the end of src[]
  * @param src Array to be copied into dest
  * @param srcSize Size of src
@@ -61,15 +49,15 @@ void sortMatrix(int arr[], int size) {
  * @param size Size of given array
  */
 void outputMatrix(int arr[], int size) {
-    cout << arr[0];
-    for(int i=1; i < size; i++)
+    // cout << arr[0];
+    for(int i=0; i < size; i++)
         cout << arr[i] << " ";
 }
 
 /**
  * Exponent function since we can't use any math libraries -_-
- * @param base
- * @param power
+ * @param base The base of the exponent expression
+ * @param power The exponent
  */
 int power(int base, int power) {
     int output = base;
@@ -208,11 +196,12 @@ void sum(int x[], int xSize) {
 
 int main() {
     char task;
-    string elem;               // Useless
-    string rawMatrix;
+    string elem;
+
     cin >> task;
     cin >> elem;
     int e = strToInt(elem) * 3;
+
     int x[e] = {0};
     int xSize = sizeof(x)/sizeof(x[0]);
     
