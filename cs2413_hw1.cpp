@@ -67,7 +67,7 @@ void outputMatrix(int arr[], int size) {
     cout << arr[0];
     for(int i=1; i < size; i++) {
         cout << " " << arr[i];
-    } cout << endl;
+    }
 }
 
 /**
