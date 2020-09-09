@@ -138,20 +138,24 @@ void multiply(int x[], int xSize) {
     int size = xSize * xSize;
     int product[size] = {0};
     int nextEmpty = 0;
-
+    int sum = 0;
+    bool val = false;
     for(int i=0; i < 8; i++) {
         for(int j=0; j < 8; j++) {
-            int sum = 0;
-            bool val = false;
+
             for(int k=0; k < xSize; k+=3) {
                 for(int l=0; l < ySize; l+=3) {
                     if(x[k+1] == y[l] && x[k] == i && y[l+1] == j) {
                         sum += x[k+2] * y[l+2];
-                        product[nextEmpty++] = x[k];
-                        product[nextEmpty++] = y[l+1];
-                        product[nextEmpty++] = sum;
+                        val = true;
                     }
                 }
+            } if(val) {
+                product[nextEmpty++] = i;
+                product[nextEmpty++] = j;
+                product[nextEmpty++] = sum;
+                sum = 0;
+                val = false;
             }
         }
     }
