@@ -120,7 +120,7 @@ void populateArray(string str, int arr[]) {
  */
 void transpose(int arr[], int size) {
     int j = 0;
-    for(int i=0; i < size; i+=3)  // swaps row and column values for each trio
+    for(int i=0; i < size-1; i+=3)  // swaps row and column values for each trio
         arr[i] = (arr[i] ^ arr[i+1]) ^ (arr[i+1] = arr[i]);
 
     sortMatrix(arr, size);
