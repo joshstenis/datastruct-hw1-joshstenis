@@ -59,6 +59,7 @@ void outputMatrix(int arr[], int size) {
  */
 void populateArray(string str, int arr[]) {
     int j = 0;
+    int tmp;
     for(int i=0; i < str.length(); i++) {
         if(str[i] != ' ')
             arr[j++] = (int)str[i] - 48;        // Method was using unicode values, so the constant 48 was found to gain the desired value
@@ -79,15 +80,10 @@ void transpose(int arr[]) {
     int *tmp;
     for(int i=0; i < xSize; i+=3) {    // bubble sort by row-column-value trios
         for(int j=i+3; j < xSize; j+=3) {
-            tmp = &arr[j];
             if(arr[j] < arr[i] || (arr[j] == arr[i] && arr[j+1] < arr[i+1])) {       // if rows OR columns are in wrong order
-                arr[i] = arr[j];
-                arr[i+1] = arr[j+1];
-                arr[i+2] = arr[j+2];
-
-                arr[j] = *tmp++;
-                arr[j+1] = *tmp++;
-                arr[j+2] = *tmp++;
+                arr[i] = (arr[i] ^ arr[j]) ^ (arr[j] = arr[i]);
+                arr[i+1] = (arr[i+1] ^ arr[j+1]) ^ (arr[j+1] = arr[i+1]);
+                arr[i+2] = (arr[i+2] ^ arr[j+2]) ^ (arr[j+2] = arr[i+2]);
             }
         }
     } outputMatrix(arr, xSize);
@@ -101,7 +97,7 @@ void transpose(int arr[]) {
  * @param ySize The size of y
  */
 void multiply(int x[], int xSize, int y[], int ySize) {
-    int product[12];
+    int product[30];
     int nextEmpty = 0;
 
     for(int i=0; i < xSize; i+=3) {
@@ -114,7 +110,7 @@ void multiply(int x[], int xSize, int y[], int ySize) {
             }
         }
     }
-    outputMatrix(product, 12);
+    outputMatrix(product, 30);
 }
 
 /**
@@ -131,7 +127,7 @@ void sum(int x[], int xSize, int y[], int ySize) {
             sum[i] = x[i];
         else
             sum[i] = y[i-xSize];
-    } outputMatrix(sum, 24);
+    } outputMatrix(sum, sumSize);
     
     int sharedVals = 0;
     for(int i=0; i < xSize; i+=3) {
@@ -185,8 +181,10 @@ void sum(int x[], int xSize, int y[], int ySize) {
 }
 
 int main() {
-    string task, rawMatrix;
+    string task;
+    string rawMatrix;
     getline(cin, task);
+    cout << "TASK INPUT" << endl;
 
     if(task == "1") {           // Task 1
         string rawMatrix;
@@ -201,5 +199,5 @@ int main() {
         getline(cin, rawMatrix);
         populateArray(rawMatrix, x);
         multiply(x, xSize, y, ySize);
-    }
+    } return 0;
 }
