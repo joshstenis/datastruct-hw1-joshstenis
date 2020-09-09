@@ -1,9 +1,6 @@
 #include <iostream>
 using namespace std;
 
-int x[30];              // Input from file
-int xSize = sizeof(x)/sizeof(x[0]);
-
 int y[] = { 0, 0, 1,               // Given as part of Assignment 1
             0, 3, 9,
             0 ,5, 5,
@@ -217,10 +214,13 @@ void sum(int x[], int xSize) {
 
 int main() {
     char task;
-    string r;               // Useless
+    string elem;               // Useless
     string rawMatrix;
     cin >> task;
-    cin >> r;
+    cin >> elem;
+    int e = strToInt(elem) * 3;
+    int x[e] = {0};
+    int xSize = sizeof(x)/sizeof(x[0]);
     
     cin.ignore(1, '\n');
     if(task == '1') {           // Task 1
