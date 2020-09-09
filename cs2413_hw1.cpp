@@ -61,6 +61,7 @@ void sortMatrix(int arr[], int size) {
 /**
  * Outputs a given int array as a oneline string
  * @param arr Given int array, in theory represents a sparse matrix
+ * @param size Size of given array
  */
 void outputMatrix(int arr[], int size) {
     cout << arr[0];
@@ -118,6 +119,7 @@ void populateArray(string str, int arr[]) {
  * Transposes a given array.
  * Outputs transposition in efficient representation.
  * @param arr Given array to be transposed. Assumes efficient representation
+ * @param size Size of given array
  */
 void transpose(int arr[], int size) {
     int j = 0;
@@ -131,8 +133,6 @@ void transpose(int arr[], int size) {
  * Multiplies two matrices -- Assumes efficient representation
  * @param x First matrix to multiply
  * @param xSize The size of x
- * @param y Second matrix to multiply
- * @param ySize The size of y
  */
 void multiply(int x[], int xSize) {
     int size = xSize * xSize;
@@ -145,40 +145,16 @@ void multiply(int x[], int xSize) {
             bool val = false;
             for(int k=0; k < xSize; k+=3) {
                 for(int l=0; l < ySize; l+=3) {
-                    if(x[k] == i && y[l+1] == j) {
+                    if(x[k+1] == y[l] && x[k] == i && y[l+1] == j) {
                         sum += x[k+2] * y[l+2];
-                        val = true;
+                        product[nextEmpty++] = x[k];
+                        product[nextEmpty++] = y[l+1];
+                        product[nextEmpty++] = sum;
                     }
                 }
             }
-            if(val) {
-                cout << sum << endl;
-                product[nextEmpty++] = i;
-                product[nextEmpty++] = j;
-                product[nextEmpty++] = sum;
-                val = false;
-            }
         }
     }
-
-
-    // for(int i=0; i < xSize; i+=3) {
-    //     for(int j=0; j < ySize; j+=3) {
-    //         elementProduct = 0;
-    //         if(x[i] == y[j+1]) {
-    //             product[nextEmpty++] = x[i];
-    //             product[nextEmpty++] = y[j+1];
-    //             elementProduct = x[i+2] * y[j+2];
-
-    //             for(int k=0; k < xSize; k+=3) {
-    //                 for(int l=0; l < ySize; l+=3) {
-    //                     if(x[k] == x[i] && y[j+1] == y[l+1] && x[k+1] == x[i+1]+1 && y[l] == y[j]+1)
-    //                             elementProduct += x[k+2] * y[l+2];
-    //                 }
-    //             } product[nextEmpty++] = elementProduct;
-    //         }
-    //     }
-    // }
     
     int pSize = nextEmpty;
     int pProduct[pSize] = {0};
@@ -190,6 +166,8 @@ void multiply(int x[], int xSize) {
 
 /**
  * Calculates the sum of two matrices.
+ * @param x Given array to be added to Y (static)
+ * @param xSize Size of x
  */
 void sum(int x[], int xSize) {
     int sum[xSize*2] = {0};
