@@ -91,7 +91,7 @@ int strToInt(string str) {
     int val = 0;
     for(int i=0 ;i < str.length(); i++) {
         if(str[i] != '-')
-            val += power(10, str.length()-i) * str[i];
+            val += power(10, str.length()-i) * (str[i] - 48);
     } if(str[0] == '-') val *= -1;
     
     return val/10;
@@ -110,7 +110,7 @@ void populateArray(string str, int arr[]) {
             for(int j=i; j < str.length(); j++) {
                 if(str[j] == ' ') break;
                 temp += str[j];
-            } arr[k++] = strToInt(temp) - 48;        // Method was using unicode values, so the constant 48 was found to gain the desired value
+            } arr[k++] = strToInt(temp);        // Method was using unicode values, so the constant 48 was found to gain the desired value
         }
     }
 }
@@ -221,7 +221,7 @@ int main() {
     string rawMatrix;
     cin >> task;
     cin >> r;
-
+    
     cin.ignore(1, '\n');
     if(task == '1') {           // Task 1
         getline(cin, rawMatrix);
