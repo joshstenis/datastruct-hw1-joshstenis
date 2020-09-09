@@ -64,7 +64,7 @@ void outputMatrix(int arr[], int size) {
     cout << arr[0];
     for(int i=1; i < size; i++) {
         cout << " " << arr[i];
-    }
+    } cout << endl;
 }
 
 /**
@@ -105,17 +105,6 @@ void populateArray(int e, int arr[]) {
         cin >> num;
         arr[i] = strToInt(num);
     }
-
-    // int k = 0;
-    // for(int i=0; i < str.length(); i++) {
-    //     string temp = "";
-    //     if(str[i] != ' ') {
-    //         for(int j=i; j < str.length(); j++) {
-    //             if(str[j] == ' ') break;
-    //             temp += str[j];
-    //         } arr[k++] = strToInt(temp);        // Method was using unicode values, so the constant 48 was found to gain the desired value
-    //     }
-    // }
 }
 
 /**
