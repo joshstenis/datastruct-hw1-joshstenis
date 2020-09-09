@@ -95,21 +95,27 @@ int strToInt(string str) {
 }
 
 /**
- * Populates a given array with the contents of a given string.
- * @param str Given string to be put into array
- * @param arr Given array to be populated with the string (removes spaces)
+ * Populates a given array with the numerous inputs of amount e
+ * @param e Number of elements in given matrix
+ * @param arr Given array to be populated with the inputs (delimited by whitespace)
  */
-void populateArray(string str, int arr[]) {
-    int k = 0;
-    for(int i=0; i < str.length(); i++) {
-        string temp = "";
-        if(str[i] != ' ') {
-            for(int j=i; j < str.length(); j++) {
-                if(str[j] == ' ') break;
-                temp += str[j];
-            } arr[k++] = strToInt(temp);        // Method was using unicode values, so the constant 48 was found to gain the desired value
-        }
+void populateArray(int e, int arr[]) {
+    string num;
+    for(int i=0; i < e; i++) {
+        cin >> num;
+        arr[i] = strToInt(num);
     }
+
+    // int k = 0;
+    // for(int i=0; i < str.length(); i++) {
+    //     string temp = "";
+    //     if(str[i] != ' ') {
+    //         for(int j=i; j < str.length(); j++) {
+    //             if(str[j] == ' ') break;
+    //             temp += str[j];
+    //         } arr[k++] = strToInt(temp);        // Method was using unicode values, so the constant 48 was found to gain the desired value
+    //     }
+    // }
 }
 
 /**
@@ -120,7 +126,7 @@ void populateArray(string str, int arr[]) {
  */
 void transpose(int arr[], int size) {
     int j = 0;
-    for(int i=0; i < size-1; i+=3)  // swaps row and column values for each trio
+    for(int i=0; i < size; i+=3)  // swaps row and column values for each trio
         arr[i] = (arr[i] ^ arr[i+1]) ^ (arr[i+1] = arr[i]);
 
     sortMatrix(arr, size);
@@ -224,17 +230,14 @@ int main() {
     
     cin.ignore(1, '\n');
     if(task == '1') {           // Task 1
-        getline(cin, rawMatrix);
-        populateArray(rawMatrix, x);
+        populateArray(e, x);
         transpose(x, xSize);
         outputMatrix(x, xSize);
     } else if(task == '2') {            // Task 2
-        getline(cin, rawMatrix);
-        populateArray(rawMatrix, x);
+        populateArray(e, x);
         sum(x, xSize);
     } else if(task == '3') {            // Task 3
-        getline(cin, rawMatrix);
-        populateArray(rawMatrix, x);
+        populateArray(e, x);
         transpose(x, xSize);
         multiply(x, xSize);
     } return 0;
