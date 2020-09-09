@@ -24,14 +24,23 @@ void populateArray(string str, int arr[]) {
 void multiply(int x[], int xSize, int y[], int ySize) {
     int product[12];
     int nextEmpty = 0;
+    int elementProduct;
 
     for(int i=0; i < xSize; i+=3) {
         for(int j=0; j < ySize; j+=3) {
+            elementProduct = 0;
             if(x[i] == y[j+1]) {
                 product[nextEmpty++] = x[i+1];
                 product[nextEmpty++] = y[j];
-                product[nextEmpty++] = x[i+2] * y[j+2];
-                cout << x[i+2] * y[j+2] << " NE: " << nextEmpty << endl;
+                elementProduct = x[i+2] * y[j+2];
+                
+                for(int k=0; k < xSize; k+=3) {
+                    for(int l=0; l < ySize; l+=3) {
+                        if(x[k] == x[i] && y[j+1] == y[l+1] && x[k+1] == x[i+1]+1 && y[l] == y[j]+1)
+                            elementProduct += x[k+2] * y[l+2];
+                    }
+                } product[nextEmpty++] = elementProduct;
+
             }
         }
     }
@@ -41,7 +50,7 @@ void multiply(int x[], int xSize, int y[], int ySize) {
 
 int main() {
     string rawX = "0 0 1 0 1 3";        // Test X string
-    string rawY = "0 0 3 1 0 2";        // Test Y string
+    string rawY = "0 0 3 0 1 2";        // Test Y string
 
     populateArray(rawX, x);
     outputMatrix(x, xSize);
