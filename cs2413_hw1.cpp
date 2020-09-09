@@ -215,12 +215,10 @@ void sum(int x[], int xSize) {
         }
         
         if(!inY) {
-            cout << "ADDED " << y[i+2] << endl;
             sum[nextEmpty++] = y[i];
             sum[nextEmpty++] = y[i+1];
             sum[nextEmpty++] = y[i+2];
         } if(!inX) {
-            cout << "ADDED " << x[i+2] << endl;
             sum[nextEmpty++] = x[i];
             sum[nextEmpty++] = x[i+1];
             sum[nextEmpty++] = x[i+2];
