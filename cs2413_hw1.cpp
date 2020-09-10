@@ -21,9 +21,8 @@ int ySize = sizeof(y)/sizeof(y[0]);
  * @param destSize Size of dest
  */
 void copyToArray(int src[], int srcSize, int dest[], int destSize) {
-    for(int i=0; i < destSize; i++) {
+    for(int i=0; i < destSize; i++)
         dest[i] = src[i];
-    }
 }
 
 /**
@@ -49,9 +48,9 @@ void sortMatrix(int arr[], int size) {
  * @param size Size of given array
  */
 void outputMatrix(int arr[], int size) {
-    cout << arr[0];
-    for(int i=1; i < size; i++)
-        cout << " " << arr[i];
+    for(int i=0; i < size-1; i++)
+        cout << arr[i] << " ";
+    cout << arr[size-1];
 }
 
 /**
@@ -91,7 +90,7 @@ void populateArray(int e, int arr[]) {
     for(int i=0; i < e; i++) {
         cin >> num;
         arr[i] = strToInt(num);
-    } // cin.ignore(1, ' ');
+    } cin.ignore(1, ' ');
 }
 
 /**
