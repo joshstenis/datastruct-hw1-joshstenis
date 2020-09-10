@@ -52,7 +52,7 @@ void outputMatrix(int arr[], int size) {
     for(int i=1; i < size; i++)
         str += " " + arr[i];
     if(str[str.length()-1] == ' ')                  // If trailing space, remove trailing space
-        cout << str.substr(0, str.length()-1);
+        cout << str.substr(0, str.length()-2);
     else
         cout << str;
 }
