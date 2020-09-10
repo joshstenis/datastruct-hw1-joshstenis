@@ -203,7 +203,7 @@ int main() {
     int e = strToInt(elem) * 3;
 
     int x[e] = {0};
-    int xSize = sizeof(x)/sizeof(x[0]);
+    int xSize = e;
     
     cin.ignore(1, '\n');
     if(task == '1') {           // Task 1
