@@ -217,5 +217,5 @@ int main() {
         populateArray(e, x);
         transpose(x, xSize);
         multiply(x, xSize);
-    } return 0;
+    }
 }
