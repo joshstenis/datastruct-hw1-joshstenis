@@ -48,9 +48,12 @@ void sortMatrix(int arr[], int size) {
  * @param size Size of given array
  */
 void outputMatrix(int arr[], int size) {
-    for(int i=0; i < size-1; i++)
-        cout << arr[i] << " ";
-    cout << arr[size-1];
+    for(int i=0; i < size; i++) {
+        if(i == size-1) {
+            cout << arr[i];
+            break;
+        } cout << arr[i] << " ";
+    }
 }
 
 /**
