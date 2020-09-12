@@ -166,9 +166,7 @@ void sum(int x[], int xSize) {
         }
     }
     
-    for(int i=0; i < ySize; i+=3) {             // Y unique values
-        bool inX = false;
-        bool inY = false;
+    for(int i=0; i < xSize; i+=3) {             // Y unique values
         for(int j=0; j < nextEmpty; j+=3) {
             if(sum[j] == y[i] && sum[j+1] == y[i+1]) {
                 sum[nextEmpty++] = y[i];
@@ -179,8 +177,6 @@ void sum(int x[], int xSize) {
     }
 
     for(int i=0; i < xSize; i+=3) {                     // X unique values
-        bool inX = false;
-        bool inY = false;
         for(int j=0; j < nextEmpty; j+=3) {
             if(sum[j] == x[i] && sum[j+1] == x[i+1]) {
                 sum[nextEmpty++] = x[i];
