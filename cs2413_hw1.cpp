@@ -166,23 +166,27 @@ void sum(int x[], int xSize) {
         }
     }
     
-    for(int i=0; i < xSize; i+=3) {             // Y unique values
-        for(int j=0; j < nextEmpty; j+=3) {
-            if(sum[j] == y[i] && sum[j+1] == y[i+1]) {
-                sum[nextEmpty++] = y[i];
-                sum[nextEmpty++] = y[i+1];
-                sum[nextEmpty++] = y[i+2];
-            }
+    for(int i=0; i < ySize; i+=3) {
+        bool inX = false;
+        bool inY = false;
+        for(int j=0; j < nextEmpty; j+=3)
+            if(sum[j] == y[i] && sum[j+1] == y[i+1]) inY = true;
+        if(!inY) {
+            sum[nextEmpty++] = y[i];
+            sum[nextEmpty++] = y[i+1];
+            sum[nextEmpty++] = y[i+2];
         }
     }
 
-    for(int i=0; i < xSize; i+=3) {                     // X unique values
-        for(int j=0; j < nextEmpty; j+=3) {
-            if(sum[j] == x[i] && sum[j+1] == x[i+1]) {
-                sum[nextEmpty++] = x[i];
-                sum[nextEmpty++] = x[i+1];
-                sum[nextEmpty++] = x[i+2];
-            }
+    for(int i=0; i < xSize; i+=3) {
+        bool inX = false;
+        bool inY = false;
+        for(int j=0; j < nextEmpty; j+=3)
+            if(sum[j] == x[i] && sum[j+1] == x[i+1]) inX = true;
+        if(!inX) {
+            sum[nextEmpty++] = x[i];
+            sum[nextEmpty++] = x[i+1];
+            sum[nextEmpty++] = x[i+2];
         }
     }
     
